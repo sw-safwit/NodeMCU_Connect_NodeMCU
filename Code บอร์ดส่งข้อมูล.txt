@@ -1,0 +1,28 @@
+//ส่งข้อมูล
+
+const int inputPin = D1; 
+int lastSignal = -1;
+
+void setup() {
+  Serial.begin(9600); 
+
+  pinMode(inputPin, INPUT_PULLUP);
+}
+
+int count = 0;
+
+void loop() {
+  int signal = digitalRead(inputPin);
+
+  // ส่งข้อมูลเฉพาะเมื่อมีการเปลี่ยนสถานะ (ปุ่มถูกกดหรือปล่อย)
+  if (signal != lastSignal) {
+    if (signal == LOW) {
+      Serial.println("ON");
+    } else {
+      Serial.println("OFF");
+    }
+    lastSignal = signal; // อัปเดตสถานะล่าสุด
+  }
+  
+  delay(50); 
+}
